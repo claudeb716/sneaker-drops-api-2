@@ -42,8 +42,7 @@ public class SneakerService {
     return sneakerRepository.findByBrand_Name(brandname);
     }
     public Sneaker byId(long id){
-    return sneakerRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("No Sneakers with id " + id));
+    return sneakerRepository.findById(id).orElse(null);
     }
     public Sneaker addSneaker(String model, double price, int year, long brandId) {
     Brand brand = brandRepository.findById(brandId)
