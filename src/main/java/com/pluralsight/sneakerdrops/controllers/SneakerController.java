@@ -2,10 +2,7 @@ package com.pluralsight.sneakerdrops.controllers;
 
 import com.pluralsight.sneakerdrops.models.Sneaker;
 import com.pluralsight.sneakerdrops.service.SneakerService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,9 @@ public class SneakerController {
     @GetMapping //helps access it through a get request
     public List<Sneaker> getAll(){
         return sneakerService.allSneakers();
+    }
+    @GetMapping("/{id}")
+    public Sneaker getById(@PathVariable long id){
+        return sneakerService.byId(id);
     }
 }

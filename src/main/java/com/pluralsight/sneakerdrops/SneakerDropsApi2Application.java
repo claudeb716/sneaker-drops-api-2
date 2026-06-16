@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SneakerDropsApi2Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SneakerDropsApi2Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SneakerDropsApi2Application.class, args);
+    }
 
 }
