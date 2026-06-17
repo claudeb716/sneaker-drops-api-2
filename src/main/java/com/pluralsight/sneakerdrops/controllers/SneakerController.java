@@ -16,7 +16,7 @@ import java.util.List;
 public class SneakerController {
 
     private final SneakerService sneakerService;
-    /*takes SneakerService and uses construtor injection @AUtowired not need for 1 constructor
+    /*takes SneakerService and uses constructor injection @AUtowired not need for 1 constructor
     The SneakerController asks the SneakerService (Never touches the repository)*/
     public SneakerController(SneakerService sneakerService) {
         this.sneakerService = sneakerService;
@@ -26,9 +26,10 @@ public class SneakerController {
     public List<Sneaker> getAll(@RequestParam(required = false) Integer year,
                                 @RequestParam(required = false) String model,
                                 @RequestParam(required = false) String brand,
-                                @RequestParam(required = false) Double price,
+                                @RequestParam(required = false) Double minPrice,
+                                @RequestParam(required = false) double maxPrice,
                                 @RequestParam(required = false) String sort){
-        return sneakerService.search(year,model,brand,price,sort);
+        return sneakerService.search(year,model,brand,minPrice,maxPrice,sort);
 
     }
     @GetMapping("/{id}")

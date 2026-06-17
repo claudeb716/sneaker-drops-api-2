@@ -46,12 +46,13 @@ public class SneakerService {
     public Sneaker byId(long id){
     return sneakerRepository.findById(id).orElse(null);
     }
-    public List<Sneaker> search(Integer year,String model,String brand, Double price, String sort){
+    public List<Sneaker> search(Integer year,String model,String brand, Double minPrice, Double maxPrice, String sort){
     List<Sneaker> results = new ArrayList<>(sneakerRepository.findAll().stream()
             .filter(sneaker -> year == null || sneaker.getReleaseYear() == year)
             .filter(sneaker -> model == null || sneaker.getModel().toLowerCase().contains(model.toLowerCase()))
             .filter(sneaker -> brand == null || sneaker.getBrand() != null && sneaker.getBrand().getName().equalsIgnoreCase(brand))
-            .filter(sneaker -> price == null || sneaker.getPrice() <= price)
+            .filter(sneaker -> minPrice == null || sneaker.getPrice() >= minPrice)
+            .filter(sneaker -> maxPrice == null || sneaker.getPrice() <= maxPrice)
             .toList());
     //sort
     if ("price".equalsIgnoreCase(sort)){
