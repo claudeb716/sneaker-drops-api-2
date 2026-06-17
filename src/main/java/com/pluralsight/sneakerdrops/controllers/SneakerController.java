@@ -23,8 +23,13 @@ public class SneakerController {
     }
     //endpoint
     @GetMapping //helps access it through a get request
-    public List<Sneaker> getAll(){
-        return sneakerService.allSneakers();
+    public List<Sneaker> getAll(@RequestParam(required = false) Integer year,
+                                @RequestParam(required = false) String model,
+                                @RequestParam(required = false) String brand,
+                                @RequestParam(required = false) Double price,
+                                @RequestParam(required = false) String sort){
+        return sneakerService.search(year,model,brand,price,sort);
+
     }
     @GetMapping("/{id}")
     public Sneaker getById(@PathVariable long id){

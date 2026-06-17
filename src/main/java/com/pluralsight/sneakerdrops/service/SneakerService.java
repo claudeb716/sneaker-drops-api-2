@@ -5,9 +5,14 @@ import com.pluralsight.sneakerdrops.data.SneakerRepository;
 import com.pluralsight.sneakerdrops.models.Brand;
 import com.pluralsight.sneakerdrops.models.Sneaker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.util.Collections.sort;
 
 
 // (A Bean that holds business logic)
@@ -35,14 +40,29 @@ public class SneakerService {
     public List<Sneaker> byYear(int year){
     return sneakerRepository.findByReleaseYear(year);
     }
-    public List<Sneaker> customSearch(double maxPrice, int minYear){
-    return sneakerRepository.search(maxPrice, minYear);
-    }
+//    public List<Sneaker> customSearch(double maxPrice, int minYear){
+//    return sneakerRepository.search(maxPrice, minYear);
+//    }
     public List<Sneaker> byBrand(String brandname){
     return sneakerRepository.findByBrand_Name(brandname);
     }
     public Sneaker byId(long id){
     return sneakerRepository.findById(id).orElse(null);
+    }
+    public List<Sneaker> search(Integer year,String model,String brand, Double price, String sort){
+    List<Sneaker> results = new ArrayList<>(sneakerRepository.findAll().stream()
+            .filter(sneaker -> year == null || sneaker.getReleaseYear() == year)
+            .filter(sneaker -> model == null || sneaker.getModel().toLowerCase().contains(model.toLowerCase()))
+            .filter(sneaker -> brand == null || sneaker.getBrand() != null && sneaker.getBrand().getName().equalsIgnoreCase(brand))
+            .filter(sneaker -> price == null || sneaker.getPrice() <= price)
+            .toList());
+    //sort
+    if ("price".equalsIgnoreCase(sort)){
+        results.sort(Comparator.comparingDouble(Sneaker::getPrice));
+    }else if ("models".equalsIgnoreCase(sort)){
+        results.sort(Comparator.comparing(Sneaker::getModel));
+    }
+    return results;
     }
     public Sneaker addSneaker(String model, double price, int year, long brandId) {
     Brand brand = brandRepository.findById(brandId)
