@@ -28,24 +28,21 @@ public class SneakerService {
         this.brandRepository = brandRepository;
     }
 
-    public List<Sneaker> allSneakers(){
-    return sneakerRepository.findAll();
-    }
-    public List<Sneaker> byModel(String model){
-    return sneakerRepository.findByModelContaining(model);
-    }
-    public List<Sneaker> byMaxPrice(double price){
-    return sneakerRepository.findByPriceLessThan(price);
-    }
-    public List<Sneaker> byYear(int year){
-    return sneakerRepository.findByReleaseYear(year);
-    }
+//    public List<Sneaker> allSneakers(){
+//    return sneakerRepository.findAll();
+//    }
+//    public List<Sneaker> byModel(String model){
+//    return sneakerRepository.findByModelContaining(model);
+//    }
+//    public List<Sneaker> byMaxPrice(double price){
+//    return sneakerRepository.findByPriceLessThan(price);
+//    }
+//    public List<Sneaker> byYear(int year){
+//    return sneakerRepository.findByReleaseYear(year);
+//    }
 //    public List<Sneaker> customSearch(double maxPrice, int minYear){
 //    return sneakerRepository.search(maxPrice, minYear);
 //    }
-    public List<Sneaker> byBrand(String brandname){
-    return sneakerRepository.findByBrand_Name(brandname);
-    }
     public Sneaker byId(long id){
     return sneakerRepository.findById(id).orElse(null);
     }
